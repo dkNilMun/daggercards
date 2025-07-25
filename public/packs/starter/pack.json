@@ -3,9 +3,17 @@
   "cards": [
     {
       "id": "card001",
-      "title": "Flame Knight",
+      "title": "Code of Grace",
       "keywords": ["fire", "warrior"],
-      "domain": "Elemental",
+      "domain": "Splendor",
+      "thumbnail": "/packs/starter/thumbs/flame-knight.png",
+      "full": "/packs/starter/cards/flame-knight.png"
+    },
+    {
+      "id": "card002",
+      "title": "Code of Beasts",
+      "keywords": ["fire", "warrior"],
+      "domain": "Sage",
       "thumbnail": "/packs/starter/thumbs/flame-knight.png",
       "full": "/packs/starter/cards/flame-knight.png"
     }
