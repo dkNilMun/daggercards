@@ -1,0 +1,29 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.card-item {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.card-item:hover {
+    transform: scale(1.05);
+}
+
+.card-thumb {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.card-title {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}

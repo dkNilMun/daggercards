@@ -1,0 +1,13 @@
+{
+  "packName": "Starter Pack",
+  "cards": [
+    {
+      "id": "card001",
+      "title": "Flame Knight",
+      "keywords": ["fire", "warrior"],
+      "domain": "Elemental",
+      "thumbnail": "/packs/starter/thumbs/flame-knight.png",
+      "full": "/packs/starter/cards/flame-knight.png"
+    }
+  ]
+}
