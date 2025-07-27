@@ -14,6 +14,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ cards, setCards }) => {
         <Router>
             <Routes>
                 <Route path="/" element={<Home cards={cards} setCards={setCards} />} />
+                <Route path="/pack/:packId" element={<Home cards={cards} setCards={setCards} />} />
                 <Route path="/card/:cardId" element={<CardPage cards={cards} />} />
             </Routes>
         </Router>

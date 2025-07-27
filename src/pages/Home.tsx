@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import CardGrid from '../components/CardGrid';
 import type {Card, CardPack} from "../types/card.ts";
+import {Link, useParams} from "react-router-dom";
 
 const availablePacks = [
     { id: 'starter', name: 'Starter Pack' },
@@ -13,15 +14,21 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
-    const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
+    const { packId } = useParams<{ packId: string }>();
     const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!selectedPackId) return;
+        if (!packId) {
+            setCards([]);
+            setSelectedDomain(null);
+        }
+    }, [packId, setCards]);
 
+    useEffect(() => {
+        if (!packId) return;
         const loadPack = async () => {
             try {
-                const res = await fetch(`/packs/${selectedPackId}/pack.json`);
+                const res = await fetch(`/packs/${packId}/pack.json`);
                 const data: CardPack = await res.json();
                 setCards(data.cards);
                 setSelectedDomain(null);
@@ -29,9 +36,8 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
                 console.error('Error loading pack:', err);
             }
         };
-
         loadPack();
-    }, [selectedPackId]);
+    }, [packId]);
 
     const domainsWithCounts = cards.reduce<Record<string, number>>((acc, card) => {
         acc[card.domain] = (acc[card.domain] || 0) + 1;
@@ -45,13 +51,13 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
     return (
         <div style={{ display: 'flex' }}>
             <aside style={{ width: '200px', padding: '1rem' }}>
-                {!selectedPackId ? (
+                {!packId ? (
                     <div>
                         <h3>Select a Pack:</h3>
                         {availablePacks.map((pack) => (
-                            <button key={pack.id} onClick={() => setSelectedPackId(pack.id)}>
+                            <Link key={pack.id} to={(`/pack/${pack.id}`)}>
                                 {pack.name}
-                            </button>
+                            </Link>
                         ))}
                     </div>
                 ) : (
@@ -64,7 +70,7 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
                 )}
             </aside>
             <main style={{ flex: 1, padding: '1rem' }}>
-                {selectedPackId ? (
+                {packId ? (
                     <CardGrid cards={filteredCards} />
                 ) : (
                     <p>Please select a card pack to begin.</p>
