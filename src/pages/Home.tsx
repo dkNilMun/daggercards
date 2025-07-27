@@ -7,10 +7,13 @@ const availablePacks = [
     { id: 'starter', name: 'Starter Pack' },
     { id: 'winter', name: 'Winter Pack' }
 ];
+interface HomeProps {
+    cards: Card[];
+    setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+}
 
-const Home: React.FC = () => {
+const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
     const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
-    const [cards, setCards] = useState<Card[]>([]);
     const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
 
     useEffect(() => {
