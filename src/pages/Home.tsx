@@ -16,7 +16,7 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
     const { packId } = useParams<{ packId: string }>();
     const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
 // Import all images from all packs
-    const allThumbnails = import.meta.glob('/public/packs/*/cards/*.png', {
+    const allThumbnails = import.meta.glob('/public/packs/*/cards/*/*.png', {
         eager: true,
         as: 'url'
     });
@@ -33,11 +33,16 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
             .filter(([path]) => path.includes(`/packs/${packId}/cards/`));
 
         const cardsFromImages: Card[] = packThumbnails.map(([path, url]) => {
+            // Extract domain from folder after /cards/
+            const domainMatch = path.match(/\/cards\/([^/]+)\//);
+            const domain = domainMatch ? domainMatch[1] : 'Unknown';
+
             const filename = path.split('/').pop() || '';
-            const [domain, ...rest] = filename.replace('.png', '').split('_');
+            const title = filename.replace('.png', '').replace(/_/g, ' ');
+
             return {
                 id: filename.replace('.png', ''),
-                title: rest.join(' '),
+                title,
                 domain,
                 keywords: [],
                 full: url as string,
