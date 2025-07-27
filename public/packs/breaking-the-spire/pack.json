@@ -1,0 +1,13 @@
+{
+  "packName": "Breaking The Spire",
+  "cards": [
+    {
+      "id": "card001",
+      "title": "Code of Grace",
+      "keywords": ["fire", "warrior"],
+      "domain": "Splendor",
+      "thumbnail": "/packs/starter/thumbs/flame-knight.png",
+      "full": "/packs/starter/cards/flame-knight.png"
+    },
+  ]
+}

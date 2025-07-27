@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import CardGrid from '../components/CardGrid';
-import type {Card, CardPack} from "../types/card.ts";
+import type {Card} from "../types/card.ts";
 import {Link, useParams} from "react-router-dom";
 
 const availablePacks = [
-    { id: 'starter', name: 'Starter Pack' },
-    { id: 'winter', name: 'Winter Pack' }
+    { id: 'breaking-the-spire', name: 'Breaking the Spire' }
 ];
 interface HomeProps {
     cards: Card[];
@@ -16,28 +15,39 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
     const { packId } = useParams<{ packId: string }>();
     const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
+// Import all images from all packs
+    const allThumbnails = import.meta.glob('/public/packs/*/cards/*.png', {
+        eager: true,
+        as: 'url'
+    });
 
     useEffect(() => {
         if (!packId) {
             setCards([]);
             setSelectedDomain(null);
+            return;
         }
-    }, [packId, setCards]);
 
-    useEffect(() => {
-        if (!packId) return;
-        const loadPack = async () => {
-            try {
-                const res = await fetch(`/packs/${packId}/pack.json`);
-                const data: CardPack = await res.json();
-                setCards(data.cards);
-                setSelectedDomain(null);
-            } catch (err) {
-                console.error('Error loading pack:', err);
-            }
-        };
-        loadPack();
-    }, [packId]);
+        // Filter images for the selected pack
+        const packThumbnails = Object.entries(allThumbnails)
+            .filter(([path]) => path.includes(`/packs/${packId}/cards/`));
+
+        const cardsFromImages: Card[] = packThumbnails.map(([path, url]) => {
+            const filename = path.split('/').pop() || '';
+            const [domain, ...rest] = filename.replace('.png', '').split('_');
+            return {
+                id: filename.replace('.png', ''),
+                title: rest.join(' '),
+                domain,
+                keywords: [],
+                full: url as string,
+                thumbnail: url as string
+            };
+        });
+
+        setCards(cardsFromImages);
+        setSelectedDomain(null);
+    }, [packId, setCards]);
 
     const domainsWithCounts = cards.reduce<Record<string, number>>((acc, card) => {
         acc[card.domain] = (acc[card.domain] || 0) + 1;
@@ -55,9 +65,11 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
                     <div>
                         <h3>Select a Pack:</h3>
                         {availablePacks.map((pack) => (
+                            <div>
                             <Link key={pack.id} to={(`/pack/${pack.id}`)}>
                                 {pack.name}
                             </Link>
+                            </div>
                         ))}
                     </div>
                 ) : (
