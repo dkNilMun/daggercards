@@ -32,12 +32,11 @@ const CardPage: React.FC<CardPageProps> = ({ cards }) => {
             </button>
             <h2>{card.title}</h2>
             <p><strong>Domain:</strong> {card.domain}</p>
-            <p><strong>Keywords:</strong> {card.keywords.join(', ')}</p>
             <div>
                 <img
                     src={card.full}
                     alt={card.title}
-                    style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                    style={{ maxWidth: '100%', minWidth: "60vw", height: 'auto', borderRadius: '8px' }}
                 />
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import './Sidebar.css';
 
 interface SidebarProps {
     domains: Record<string, number>;
@@ -9,18 +10,18 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ domains, selected, onSelect, onReset }) => (
-    <div>
+    <div className="sidebar-top">
         <Link to="/">Pack selection</Link>
         <button onClick={onReset} disabled={!selected}>Show All</button>
-        <ul>
             {Object.entries(domains).map(([domain, count]) => (
-                <li key={domain}>
-                    <button onClick={() => onSelect(domain)}>
+                <div key={domain}>
+                    <button
+                        className={`domain-button domain-${domain.toLowerCase()} ${selected === domain ? 'selected' : ''}`}
+                        onClick={() => onSelect(domain)}>
                         {domain} ({count})
                     </button>
-                </li>
+                </div>
             ))}
-        </ul>
     </div>
 );
 

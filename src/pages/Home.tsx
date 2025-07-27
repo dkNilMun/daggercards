@@ -83,7 +83,7 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
         : cards;
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="main-layout" style={{ display: 'flex' }}>
             <aside style={{ width: '200px', padding: '1rem' }}>
                 {!packId ? (
                     <div>
@@ -113,7 +113,10 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
             </aside>
             <main style={{ flex: 1, padding: '1rem' }}>
                 {packId ? (
+                    <>
+                        <h1 style={{textAlign: "center"}}>{selectedDomain}</h1>
                     <CardGrid cards={filteredCards} />
+                    </>
                 ) : (
                     <p>Please select a card pack to begin.</p>
                 )}
