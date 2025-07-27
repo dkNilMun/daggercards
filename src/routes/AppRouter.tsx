@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import CardPage from '../pages/CardPage';
-import { Card } from '../types/card';
+import type { Card } from '../types/card';
 
 interface AppRouterProps {
     cards: Card[];
