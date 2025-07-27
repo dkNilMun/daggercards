@@ -4,6 +4,8 @@ import CardGrid from '../components/CardGrid';
 import type {Card} from "../types/card.ts";
 import {Link, useParams} from "react-router-dom";
 
+const FILTER_STORAGE_KEY = 'selectedDomainFilter';
+
 const availablePacks = [
     { id: 'breaking-the-spire', name: 'Breaking the Spire' }
 ];
@@ -14,8 +16,11 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
     const { packId } = useParams<{ packId: string }>();
-    const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
-// Import all images from all packs
+    const [selectedDomain, setSelectedDomain] = useState<string | null>(() => {
+        return sessionStorage.getItem(FILTER_STORAGE_KEY) || null;
+    });
+
+    // Import all images from all packs
     const allThumbnails = import.meta.glob('/public/packs/*/cards/*/*.png', {
         eager: true,
         as: 'url'
@@ -54,6 +59,20 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
         setSelectedDomain(null);
     }, [packId, setCards]);
 
+    useEffect(() => {
+        // When cards are updated, restore the domain filter if it's present
+        if (cards.length > 0) {
+            const storedDomain = sessionStorage.getItem(FILTER_STORAGE_KEY);
+            if (storedDomain && cards.some((c) => c.domain === storedDomain)) {
+                setSelectedDomain(storedDomain);
+            } else {
+                // If the stored domain isn't valid for this pack, clear it
+                setSelectedDomain(null);
+                sessionStorage.removeItem(FILTER_STORAGE_KEY);
+            }
+        }
+    }, [cards]);
+
     const domainsWithCounts = cards.reduce<Record<string, number>>((acc, card) => {
         acc[card.domain] = (acc[card.domain] || 0) + 1;
         return acc;
@@ -64,7 +83,7 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
         : cards;
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="main-layout" style={{ display: 'flex' }}>
             <aside style={{ width: '200px', padding: '1rem' }}>
                 {!packId ? (
                     <div>
@@ -81,14 +100,23 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
                     <Sidebar
                         domains={domainsWithCounts}
                         selected={selectedDomain}
-                        onSelect={setSelectedDomain}
-                        onReset={() => setSelectedDomain(null)}
+                        onSelect={(domain) => {
+                            setSelectedDomain(domain);
+                            sessionStorage.setItem(FILTER_STORAGE_KEY, domain);
+                        }}
+                        onReset={() => {
+                            setSelectedDomain(null);
+                            sessionStorage.removeItem(FILTER_STORAGE_KEY);
+                        }}
                     />
                 )}
             </aside>
             <main style={{ flex: 1, padding: '1rem' }}>
                 {packId ? (
+                    <>
+                        <h1 style={{textAlign: "center"}}>{selectedDomain}</h1>
                     <CardGrid cards={filteredCards} />
+                    </>
                 ) : (
                     <p>Please select a card pack to begin.</p>
                 )}
