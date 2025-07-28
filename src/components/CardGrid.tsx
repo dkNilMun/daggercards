@@ -10,9 +10,13 @@ interface CardGridProps {
 const CardGrid: React.FC<CardGridProps> = ({ cards }) => {
     const navigate = useNavigate();
 
+    const sortedCards = [...cards].sort((a, b) =>
+        a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
+    );
+
     return (
         <div className="card-grid">
-            {cards.map((card) => (
+            {sortedCards.map((card) => (
                 <div
                     key={card.id}
                     className="card-item"
