@@ -12,7 +12,9 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ domains, selected, onSelect, onReset }) => (
     <div className="sidebar-top">
         <Link to="/">Pack selection</Link>
-        <button onClick={onReset} disabled={!selected}>Show All</button>
+        <button
+            className={`domain-button ${selected === null ? 'selected' : ''}`}
+            onClick={onReset} disabled={!selected}>Show All</button>
             {Object.entries(domains).map(([domain, count]) => (
                 <div key={domain}>
                     <button
