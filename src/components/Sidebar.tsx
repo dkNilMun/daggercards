@@ -15,11 +15,19 @@ const Sidebar: React.FC<SidebarProps> = ({ domains, selected, onSelect, onReset 
         <button
             className={`domain-button ${selected === null ? 'selected' : ''}`}
             onClick={onReset} disabled={!selected}>Show All</button>
-            {Object.entries(domains).map(([domain, count]) => (
+        {Object.entries(domains)
+            .sort(([a], [b]) => {
+                if (a === 'Classes') return -1;
+                if (b === 'Classes') return 1;
+                return a.localeCompare(b);
+            })
+            .map(([domain, count]) => (
                 <div key={domain}>
                     <button
                         className={`domain-button domain-${domain.toLowerCase()} ${selected === domain ? 'selected' : ''}`}
-                        onClick={() => onSelect(domain)}>
+                        style={{ display: "block", width: "100%", textAlign: "left" }}
+                        onClick={() => onSelect(domain)}
+                    >
                         {domain} ({count})
                     </button>
                 </div>
