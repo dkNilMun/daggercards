@@ -1,5 +1,6 @@
 const BreakTheSpire = () => (
-    <div style={{ textAlign: "center", padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
+    <div style={{textAlign: "center", padding: "2rem", maxWidth: "800px", margin: "0 auto"}}>
+        <img src="/packs/breaking-the-spire/graphics/SpireLogo.png" style={{maxWidth: "70%"}}/>
         <h2>Break the Spire</h2>
         <p>
             Welcome to <strong>Break the Spire</strong> — an espionage and infiltration campaign setting for{" "}

@@ -1,5 +1,6 @@
 const CyberHeart = () => (
     <div style={{textAlign: "center", padding: "2rem", maxWidth: "800px", margin: "0 auto"}}>
+        <img src="/packs/cyberheart/graphics/CyberHeart.png" style={{maxWidth: "100%"}} />
         <h2>CyberHeart</h2>
         <p>
             Welcome to <strong>CyberHeart</strong> — a cyberpunk reimagining of <em>DaggerHeart</em>, where
@@ -46,63 +47,63 @@ const CyberHeart = () => (
                 <tbody>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🧪 Arcana</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Software</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>💻 Software</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Hacking, ICE-breaking, digital sorcery, drones, AR/VR spoofing.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🗡 Blade</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Chrome</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>🤖 Chrome</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Cybernetic muscle, melee augments, smart-guns, reflex boosters.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🦴 Bone</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Edge</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>⚡ Edge</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Reflexes, risky maneuvers, stimulants, improvisation.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>📖 Codex</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Data</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>📂 Data</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Archives, dossiers, corp databases, black-market chipware.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🎭 Grace</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Influence</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>🗣️ Influence</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Reputation, negotiation, corporate politics, social engineering.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🌒 Midnight</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Shadow</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>🕶️ Shadow</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Stealth ops, sabotage, surveillance, cloaking tech, malware daemons.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🌿 Sage</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Streetwise</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>🏙️ Streetwise</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Urban survival, scavenging, gangs, junkyards, black-market meds.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>✨ Splendor</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Media</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>📺 Media</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Celebrity power, propaganda, viral influence, inspiring streams.
                     </td>
                 </tr>
                 <tr>
                     <td style={{border: "1px solid #555", padding: "8px"}}>🛡 Valor</td>
-                    <td style={{border: "1px solid #555", padding: "8px"}}>Command</td>
+                    <td style={{border: "1px solid #555", padding: "8px"}}>🎖️ Command</td>
                     <td style={{border: "1px solid #555", padding: "8px"}}>
                         Leadership, tactics, squad morale, paramilitary coordination.
                     </td>
