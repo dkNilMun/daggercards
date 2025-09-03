@@ -14,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ domains, selected, onSelect, onReset 
         <Link to="/">Pack selection</Link>
         <button
             className={`domain-button ${selected === null ? 'selected' : ''}`}
-            onClick={onReset} disabled={!selected}>Show All</button>
+            onClick={onReset} disabled={!selected}>Introduction</button>
         {Object.entries(domains)
             .sort(([a], [b]) => {
                 if (a === 'Classes') return -1;

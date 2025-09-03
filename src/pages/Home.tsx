@@ -3,11 +3,14 @@ import Sidebar from '../components/Sidebar';
 import CardGrid from '../components/CardGrid';
 import type {Card} from "../types/card.ts";
 import {Link, useParams} from "react-router-dom";
+import SiteLanding from "./SiteLanding.tsx";
+import PackLanding from "./PackLanding.tsx";
 
 const FILTER_STORAGE_KEY = 'selectedDomainFilter';
 
 const availablePacks = [
-    { id: 'breaking-the-spire', name: 'Breaking the Spire' }
+    { id: 'breaking-the-spire', name: 'Breaking the Spire' },
+    { id: 'cyberheart', name: 'Cyberheart' }
 ];
 interface HomeProps {
     cards: Card[];
@@ -73,14 +76,18 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
         }
     }, [cards]);
 
-    const domainsWithCounts = cards.reduce<Record<string, number>>((acc, card) => {
-        acc[card.domain] = (acc[card.domain] || 0) + 1;
-        return acc;
-    }, {});
+    const domainsWithCounts = {
+        All: cards.length,
+        ...cards.reduce<Record<string, number>>((acc, card) => {
+            acc[card.domain] = (acc[card.domain] || 0) + 1;
+            return acc;
+        }, {})
+    };
 
-    const filteredCards = selectedDomain
-        ? cards.filter((card) => card.domain === selectedDomain)
-        : cards;
+    const filteredCards =
+        !selectedDomain || selectedDomain === "All"
+            ? cards
+            : cards.filter((card) => card.domain === selectedDomain);
 
     return (
         <div className="main-layout" style={{ display: 'flex' }}>
@@ -112,13 +119,15 @@ const Home: React.FC<HomeProps> = ({ cards, setCards }) => {
                 )}
             </aside>
             <main style={{ flex: 1, padding: '1rem' }}>
-                {packId ? (
+                {!packId ? (
+                    <SiteLanding />
+                ) : !selectedDomain ? (
+                    <PackLanding packName={availablePacks.find(p => p.id === packId)?.name || ''} />
+                ) : (
                     <>
                         <h1 style={{textAlign: "center"}}>{selectedDomain}</h1>
-                    <CardGrid cards={filteredCards} />
+                        <CardGrid cards={filteredCards} />
                     </>
-                ) : (
-                    <p>Please select a card pack to begin.</p>
                 )}
             </main>
         </div>
